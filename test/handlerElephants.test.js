@@ -24,4 +24,12 @@ describe('Testes da função HandlerElephants', () => {
   test('Retornar um array de dias, quando passar o valor "availability"', () => {
     expect(handlerElephants('availability')).toEqual(['Friday', 'Saturday', 'Sunday', 'Tuesday']);
   });
+
+  test('Não pode conter Monday quando passado o valor "availability"', () => {
+    expect(handlerElephants('availability')).not.toContain('Monday');
+  });
+
+  test('Retornar undefined caso não receba nenhum valor', () => {
+    expect(handlerElephants()).toBe(undefined);
+  });
 });
