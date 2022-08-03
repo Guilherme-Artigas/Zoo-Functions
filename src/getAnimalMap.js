@@ -10,7 +10,7 @@ const northEast = (arg1) => {
     }
   });
   if (arg1 === undefined) return lista1;
-  if (arg1 === true) return lista2;
+  if (arg1.includeNames === true) return lista2;
 };
 
 const northEastNO = () => {
@@ -25,12 +25,16 @@ const northEastNO = () => {
 
 const northEastFilter = (arg1) => {
   const lista = [];
+  const lista2 = [];
   data.species.forEach((e) => {
     if (e.location === 'NE') {
-      lista.push({ [e.name]: e.residents.filter((element) => element.sex === arg1)
+      lista.push({ [e.name]: e.residents.filter((element) => element.sex === arg1.sex)
         .map((e1) => e1.name) });
+      lista2.push({ [e.name]: e.residents.filter((element) => element.sex === arg1.sex)
+        .map((e1) => e1.name).sort() });
     }
   });
+  if (arg1.sorted === true) return lista2;
   return lista;
 };
 
@@ -44,7 +48,7 @@ const northWest = (arg1) => {
     }
   });
   if (arg1 === undefined) return lista1;
-  if (arg1 === true) return lista2;
+  if (arg1.includeNames === true) return lista2;
 };
 
 const northWestNO = () => {
@@ -59,12 +63,16 @@ const northWestNO = () => {
 
 const northWestFilter = (arg1) => {
   const lista = [];
+  const lista2 = [];
   data.species.forEach((e) => {
     if (e.location === 'NW') {
-      lista.push({ [e.name]: e.residents.filter((element) => element.sex === arg1)
+      lista.push({ [e.name]: e.residents.filter((element) => element.sex === arg1.sex)
         .map((e1) => e1.name) });
+      lista2.push({ [e.name]: e.residents.filter((element) => element.sex === arg1.sex)
+        .map((e1) => e1.name).sort() });
     }
   });
+  if (arg1.sorted === true) return lista2;
   return lista;
 };
 
@@ -78,7 +86,7 @@ const SouthEast = (arg1) => {
     }
   });
   if (arg1 === undefined) return lista1;
-  if (arg1 === true) return lista2;
+  if (arg1.includeNames === true) return lista2;
 };
 
 const SouthEastNO = () => {
@@ -93,12 +101,16 @@ const SouthEastNO = () => {
 
 const SouthEastFilter = (arg1) => {
   const lista = [];
+  const lista2 = [];
   data.species.forEach((e) => {
     if (e.location === 'SE') {
-      lista.push({ [e.name]: e.residents.filter((element) => element.sex === arg1)
+      lista.push({ [e.name]: e.residents.filter((element) => element.sex === arg1.sex)
         .map((e1) => e1.name) });
+      lista2.push({ [e.name]: e.residents.filter((element) => element.sex === arg1.sex)
+        .map((e1) => e1.name).sort() });
     }
   });
+  if (arg1.sorted === true) return lista2;
   return lista;
 };
 
@@ -112,7 +124,7 @@ const SouthWest = (arg1) => {
     }
   });
   if (arg1 === undefined) return lista1;
-  if (arg1 === true) return lista2;
+  if (arg1.includeNames === true) return lista2;
 };
 
 const SouthWestNO = () => {
@@ -127,12 +139,16 @@ const SouthWestNO = () => {
 
 const SouthWestFilter = (arg1) => {
   const lista = [];
+  const lista2 = [];
   data.species.forEach((e) => {
     if (e.location === 'SW') {
-      lista.push({ [e.name]: e.residents.filter((element) => element.sex === arg1)
+      lista.push({ [e.name]: e.residents.filter((element) => element.sex === arg1.sex)
         .map((e1) => e1.name) });
+      lista2.push({ [e.name]: e.residents.filter((element) => element.sex === arg1.sex)
+        .map((e1) => e1.name).sort() });
     }
   });
+  if (arg1.sorted === true) return lista2;
   return lista;
 };
 
@@ -167,19 +183,10 @@ const zooFilter = (arg1) => {
 };
 
 function getAnimalMap(options = {}) {
-  if (options.includeNames === true) return zooLocations(options.includeNames);
+  if (!Object.keys(options).includes('includeNames')) return zooLocations();
+  if (options.sex === 'female') return zooFilter(options);
   if (options.sorted === true) return zooNO();
-  if (options.sex === 'female' || options.sex === 'male') return zooFilter(options.sex);
-  return zooLocations();
+  return zooLocations(options);
 }
-// Devem dar o mesmo retorno
-// console.log(getAnimalMap()); // 1º Teste
-console.log(getAnimalMap({ sex: 'female' })); // 2º Teste
-// console.log(getAnimalMap({ sex: 'female', sorted: true })); // 3º Teste
-// -----------------------------------------------------------------------
 
-// console.log(getAnimalMap({ includeNames: true })); // 4º Teste
-// console.log(getAnimalMap({ sorted: true })); // 5 Teste
-// console.log(getAnimalMap({ sex: 'male' })); // 6º Teste
-// console.log(JSON.stringify(getAnimalMap({ includeNames: true }), null, ' '));
 module.exports = getAnimalMap;
