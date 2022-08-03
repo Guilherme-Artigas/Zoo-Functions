@@ -32,4 +32,12 @@ describe('Testes da função HandlerElephants', () => {
   test('Retornar undefined caso não receba nenhum valor', () => {
     expect(handlerElephants()).toBe(undefined);
   });
+
+  test('Retornar parâmetro inválido caso receba um objeto vazio', () => {
+    expect(handlerElephants({})).toBe('Parâmetro inválido, é necessário uma string');
+  });
+
+  test('Retornar null caso receba uma string que não contemple a função', () => {
+    expect(handlerElephants('seila')).toBe(null);
+  });
 });
